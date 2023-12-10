@@ -6,8 +6,13 @@ const loading = document.querySelector('.loader');
 // Show the loading screen
 loading.style.display = 'block';
 
+const init = async() => {
+    await getTodos();
+}
+
 // GET request to retrieve todos from the API
-axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+const getTodos = async () => {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
     .then(response => {
         const todos = response.data;
         const tableBody = document.getElementById('items-list');
@@ -38,6 +43,8 @@ axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
         console.error('Error:', error);
         loading.style.display = 'none';
     });
+}
+
 
     function addItemToList(event) {
         event.preventDefault();
@@ -68,5 +75,5 @@ axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
     // Add event listener to the submit button
     var submitButton = document.querySelector("button[type='submit']");
     submitButton.addEventListener("click", addItemToList);
-    submitButton.addEventListener("click", addItemToList);
 
+init();
